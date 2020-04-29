@@ -15,8 +15,8 @@ The software should enable a patient XY to find a hospital or pharmacy in an eas
 | **FR7**                | The system must send a calender/list to the patient about free dates.                            |
 | **FR8**                | The system must search for a hosptital with a specialist field                                   |
 | **FR9**                | The system must have the possibility to save a date and get a message about reject or cancel     |
-| **NFR10**              | usability                                                                                        |
 |                                                                                                                           |
+| **NFR10**              | usability                                                                                        |
 | **NFR10.1**            | menu item to choose the instituion which should be search: Hospital, pharmacy, specialist field  |
 | **NFR10.2**            | show availibility with a calender: availible dates or days are green, not available dates are red| 
 | **NFR11**              | privacy potection                                                                                |
