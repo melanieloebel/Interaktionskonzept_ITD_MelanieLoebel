@@ -24,10 +24,17 @@ The software should enable a patient XY to find a hospital or pharmacy in an eas
 | **NFR10.1**            | Menu item to choose the instituion which should be search: Hospital, pharmacy, specialist field.  |
 | **NFR10.2**            | Show availibility with a calender: availible dates or days are green, not available dates are red|
 | **NFR11**              | Efficiency                                                                                |
-| **NFR11**              | Performance                                                                               | 
+| **NFR12**              | Performance                                                                               |
+| **NFR12.1**            | Time for execution: ??                                                                               |
+| **NFR12.1**            | Time for reaction: ??                                                                               |
+| **NFR12.2**            | Time pro intervall: ??                                                                               |
+| **NFR12.3**            | Bit rate: ??                                                                               |
 | **NFR13**              | Privacy potection                                                                                |
 | **NFR14**              | Safety requirements                                                                              |
 | **NFR15**              | Reliability: search for an institution with or without internet connection                       |
+| **NFR16**              | Accuracy                                                                                         |
+
+
 
 
 
