@@ -1,5 +1,6 @@
 import paho.mqtt.client as mqtt
 import json
+from doctor import *
 
 class Hospital:
     def __init__(self, name, adress, phone_no, opening_hours):
@@ -9,6 +10,8 @@ class Hospital:
         self.opening_hours = opening_hours
 
 hospitals = []
+
+
 
 #Event, dass beim Verbindungsaufbau aufgerufen wird
 def on_connect(client, userdata, flags, rc):
