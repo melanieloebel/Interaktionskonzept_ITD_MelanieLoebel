@@ -3,11 +3,14 @@ import json
 from doctor import *
 
 class Hospital:
-    def __init__(self, name, adress, phone_no, opening_hours):
+    def __init__(self, name, address, phone_no, opening_hours, spec_fields, free_rooms, doctors):
         self.name = name
-        self.adress = adress #GPS ???
+        self.address = adress #GPS ???
         self.phone_no = phone_no
         self.opening_hours = opening_hours
+        self.spec_fields = spec_fields
+        self.free_rooms = free_rooms
+        self.doctors = doctors
 
 hospitals = []
 
@@ -33,7 +36,7 @@ client.connect("mr2mbqbl71a4vf.messaging.solace.cloud", port = 20614) #Verbindun
 
 data = {
     "name": "Hospital 1", 
-    "adress":["Hospital Street", "No.1", "59555 Lippstadt"], #phone no.,...
+    "address":["Hospital Street", "No.1", "59555 Lippstadt"], #phone no.,...
     "phone_no":["02941-11111"],
     "opening_hours":["Monday - Friday 8.00a.m. until 6.30p.m.", "Saturday - Sunday 8.00a.m. until 6.p.m."],
     "topic": "hshl/hospitals/hospital_1"
