@@ -16,11 +16,9 @@ patient = input()
 print('Hello ',patient,',')
 print('please enter your appointment whish (DD.MM.YYYY):')
 
-#we = True 
+we = True 
 
-while True:
-    #print('Hello ',patient,',')
-    #print('please enter your appointment whish (DD.MM.YYYY):')
+while we:
     request_date = input()
  
     #in Datumformat konvertieren
@@ -60,16 +58,20 @@ t19 = datetime.time(17,00)
 t20 = datetime.time(17,30)
 
 #save all times in a list        
-possibleTimes = set([t1,t2,t5,t6,t15,t17])
+possibleTimes = [t1,t2,t5,t6,t15,t17]
 
 print('Please enter a time of following (HH:MM): ')
 
-while True:
+compFree = True
+while compFree:
     for i in range(len(appointment_calendar)):
         if request != appointment_calendar[i][1]:
-            #print('Please enter a time of following (HH:MM): ')
             for t in possibleTimes:
                 print(t)
+                timeInput = input()
+
+                requTime = datetime.datetime.strptime(timeInput,'%H:%M')
+                print(requTime)
 
 #########hier weiter arbeiten
 for i in range(len(appointment_calendar)):
