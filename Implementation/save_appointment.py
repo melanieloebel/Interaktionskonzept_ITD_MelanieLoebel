@@ -1,4 +1,4 @@
-#Für Implementierungs
+#Fur Implementierungs
 import datetime
 import calendar
 import locale
@@ -60,13 +60,44 @@ t20 = datetime.time(17,30)
 #save all times in a list        
 possibleTimes = [t1,t2,t5,t6,t15,t17]
 
-print('Please enter a time of following (HH:MM): ')
+
+for time in possibleTimes:
+    print(time.strftime("%H:%M"))
+
+
+appointments = []
+
+validTime = False
+
+while not validTime:
+    print('Please enter a time of following (HH:MM): ')
+    timeInput = input()
+    #'08:00'
+    spl = timeInput.split(':')
+    time_obj = datetime.time(int(spl[0]), int(spl[1]))
+    if time_obj in possibleTimes:
+        validTime = True
+        print('sehr gut!')
+        possibleTimes.remove(time_obj)
+        appointments.append(
+            {
+                patient : time_obj.strftime('%H:%M')
+            }
+        )
+
+print(appointments)
+
+
+
 
 compFree = True
 while compFree:
     for i in range(len(appointment_calendar)):
+        print('for i in range(len(appointment_calendar)):')
         if request != appointment_calendar[i][1]:
+            print('request != appointment_calendar[i][1]:')
             for t in possibleTimes:
+                print('oi')                
                 print(t)
                 timeInput = input()
 
