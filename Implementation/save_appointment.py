@@ -1,4 +1,3 @@
-#Fur Implementierungs
 import datetime
 import calendar
 import locale
@@ -34,6 +33,8 @@ while we:
         break
 
 
+print(request)
+
 #Possible times
 t1 = datetime.time(8,00)
 t2 = datetime.time(8,30)
@@ -60,13 +61,11 @@ t20 = datetime.time(17,30)
 #save all times in a list        
 possibleTimes = [t1,t2,t5,t6,t15,t17]
 
-
+#Output times
 for time in possibleTimes:
     print(time.strftime("%H:%M"))
 
-
-appointments = []
-
+#Method time input
 validTime = False
 
 while not validTime:
@@ -77,58 +76,11 @@ while not validTime:
     time_obj = datetime.time(int(spl[0]), int(spl[1]))
     if time_obj in possibleTimes:
         validTime = True
-        print('sehr gut!')
+        print('Appointment accepted:')
         possibleTimes.remove(time_obj)
-        appointments.append(
-            {
-                patient : time_obj.strftime('%H:%M')
-            }
-        )
+        appointment = (patient, request.strftime('%d.%m.%Y'), time_obj.strftime('%H:%M'))
+        appointment_calendar.append(appointment)
+                   
+ 
+print(appointment_calendar)
 
-print(appointments)
-
-
-
-
-compFree = True
-while compFree:
-    for i in range(len(appointment_calendar)):
-        print('for i in range(len(appointment_calendar)):')
-        if request != appointment_calendar[i][1]:
-            print('request != appointment_calendar[i][1]:')
-            for t in possibleTimes:
-                print('oi')                
-                print(t)
-                timeInput = input()
-
-                requTime = datetime.datetime.strptime(timeInput,'%H:%M')
-                print(requTime)
-
-#########hier weiter arbeiten
-for i in range(len(appointment_calendar)):
-    while request != appointment_calendar[i][1]:
-        print('Please enter a time of following (HH:MM): ')
-        for t in possibleTimes:
-            print(t)
-
-for i in range(len(appointment_calendar)):
-    if request != appointment_calendar[i][1]:
-        print('Please enter a time of following (HH:MM): ')
-        for t in possibleTimes:
-            print(t)
-            #appointment_time = input()
-
-
-    elif request == appointment_calendar[i][1]:
-        takenTimes = set()
-        takenTimes.add(appointment_calendar[i][1])
-
-        possTimes = set(possibleTimes)
-        freeTimes = possTimes - takenTimes
-        freeTimesList = list(freeTimes)
-        print('Please enter a time of following (HH:MM): ')
-
-        for freeT in freeTimesList:
-            print (freeT)
-           #appointment_time = input()
-               
