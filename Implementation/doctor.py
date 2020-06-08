@@ -3,7 +3,7 @@ import json
 import time
 import datetime
 import calendar
-#import appointment
+import save_appointment
 
 
 class Doctor():
@@ -91,4 +91,4 @@ class Doctor():
 
 
 doc1 = Doctor("Dr.", "Sebastian Schulze", "Herzchirugie", "123456")
-doc1.save_appointment
+doc1.save_appointment #Methode wird ausgeführt, aber es wird nicht auf die Klassen interne Methode zugegriffen

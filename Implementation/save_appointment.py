@@ -1,7 +1,31 @@
 import datetime
 import calendar
 import locale
+
+import paho.mqtt.client as mqtt
+import json
  
+ask = True
+
+def on_connect(client, userdata, flags,rc):
+    client.subscibe([("hshl/hospitals/appointment_request"), 2] # topic
+
+def on_message(client, userdata, msg):
+    global ask
+    ask = True
+    print(str(msg.payload))
+
+client = mqqt.client
+client.on_connect = on_connect
+client.on_message = on_message
+
+client.connect("test.mosquitto.org", 1883, 60)
+
+client.loop_start()
+
+
+
+
 #locale.setlocale(locale.LC_ALL, 'deu_deu')
 
 #Appointment calendar
