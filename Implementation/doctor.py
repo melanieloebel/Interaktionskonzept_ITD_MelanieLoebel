@@ -90,5 +90,5 @@ class Doctor():
     print(appointment_calendar)
 
 
-doc1 = Doctor("Dr.", "Sebastian Schulze", "Herzchirugie", "123456")
-doc1.save_appointment #Methode wird ausgeführt, aber es wird nicht auf die Klassen interne Methode zugegriffen
+#doc1 = Doctor("Dr.", "Sebastian Schulze", "Herzchirugie", "123456")
+#doc1.save_appointment #Methode wird ausgeführt, aber es wird nicht auf die Klassen interne Methode zugegriffen

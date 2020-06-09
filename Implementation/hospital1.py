@@ -1,9 +1,9 @@
 import paho.mqtt.client as mqtt
 import json
-from doctor import *
+import doctor
 
 class Hospital:
-    def __init__(self, name, address, phone_no, opening_hours, spec_fields, free_rooms, doctors):
+    def __init__(self, name, address, phone_no, opening_hours, spec_fields, free_rooms, doctors): #"HospitalName Lat,Long Doctors Id freeRooms specialists"
         self.name = name
         self.address = address #GPS ???
         self.phone_no = phone_no
@@ -18,7 +18,7 @@ hospitals = []
 #Event, dass beim Verbindungsaufbau aufgerufen wird
 def on_connect(client, userdata, flags, rc):
     client.subscribe([                    
-                    ("hshl/hospitals/hospital_1", 2),
+                    ("hshl/hospital/hospital_1", 2),
                     ])
     
 #Event, dass beim Eintreffen einer Nachricht aufgerufen wird
