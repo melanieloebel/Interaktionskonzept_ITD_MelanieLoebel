@@ -1,6 +1,6 @@
 import datetime
 
-class Calendar:
+class Calendar_times:
     def __init__(self):
         self.morning = self.create_morning_times()
         self.afternoon = self.create_afternoon_times()

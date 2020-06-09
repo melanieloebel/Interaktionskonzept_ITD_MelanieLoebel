@@ -1,7 +1,8 @@
 from doctor import Doctor
-from calendar import Calendar
+from calendar_times import Calendar_times
 from communication import Communication
 import datetime
+import calendar
 
 
 class Hospital:
@@ -71,8 +72,25 @@ class Hospital:
         print('Hello ', patient, ',')
         print('please enter your appointment whish (DD.MM.YYYY):')
 
-        request_date = input()
-        request = datetime.datetime.strptime(request_date, '%d.%m.%Y').date()
+        
+
+        # Check if chosen weekday is a weekend
+        validWeekday = True
+        
+        while validWeekday:
+            request_date = input()
+
+            #in Datumformat konvertieren
+            request = datetime.datetime.strptime(request_date, '%d.%m.%Y').date()
+
+            chosen_weekday = calendar.day_name[request.weekday()]
+
+            if chosen_weekday == 'Saturday' or chosen_weekday == 'Sunday':
+                print ('You have chosen a weekend. Please enter another date (DD.MM.YYYY):')
+
+            else:
+                print('You have chosen a ',calendar.day_name[request.weekday()])
+                break
 
         validTime = False
 
@@ -117,7 +135,7 @@ class Hospital:
 
     # create Doctor objects that represents the doctors of the hospital
     def create_doctors(self):
-        calendar = Calendar()
+        calendar = Calendar_times()
 
         doctor1 = Doctor('Dr.',
                          'Paul Stollmann',
