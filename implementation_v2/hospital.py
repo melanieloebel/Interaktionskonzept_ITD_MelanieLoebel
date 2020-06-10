@@ -30,6 +30,7 @@ class Hospital:
         }
         print('----------{}-----------'.format(self.name))
         while True:
+            #print('Specialistic fields: ', self.get_doctors_specialist())
             print('\n')
             print('Select one option:')
             print('1 - show doctors')
@@ -68,12 +69,25 @@ class Hospital:
         print('Please enter your name: ')
         patient = input()
 
-        # Input request date for appointment
+        # Input Doctor 
+        doc_options = {}
+        print('\n')
         print('Hello ', patient, ',')
-        print('please enter your appointment whish (DD.MM.YYYY):')
-
+        print('please choose one doctor for your appointment wish: ')
         
+        count=1
 
+        for doctor in self.doctors:
+            
+            doc_options[count] = (doctor.title, doctor.name, doctor.specialist)
+            count = count + 1
+            print(doc_options)
+
+            #chosen_Doctor = input()
+        
+        # Input request date for appointment
+        print('Please enter your appointment whish (DD.MM.YYYY):')
+     
         # Check if chosen weekday is a weekend
         validWeekday = True
         
@@ -106,8 +120,10 @@ class Hospital:
                 possible_times.remove(time_obj)
                 appointment = (patient, request.strftime(
                     '%d.%m.%Y'), time_obj.strftime('%H:%M'))
+                
                 self.appointments.append(appointment)
-        print(self.appointments)
+        #print(self.appointments)
+        print(appointment)
 
     def show_appointments(self):
         print(self.appointments)
@@ -136,16 +152,21 @@ class Hospital:
     # create Doctor objects that represents the doctors of the hospital
     def create_doctors(self):
         calendar = Calendar_times()
+        doctorList = []
 
         doctor1 = Doctor('Dr.',
                          'Paul Stollmann',
                          ['general', 'heart_attack'],
                          '+49 159 05251 0000',
                          calendar.morning)
+        doctorList.append(doctor1)
 
         doctor2 = Doctor('Dr.',
                          'Maria Anna Weber',
                          ['general', 'surgery'],
                          '+49 159 05251 1111',
                          calendar.morning + calendar.afternoon)
+        doctorList.append(doctor2)
+        print(doctorList)
         return [doctor1, doctor2]
+
