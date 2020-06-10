@@ -174,4 +174,12 @@ class Hospital:
                          '+49 159 05251 1111',
                          calendar.morning + calendar.afternoon)
         doctorList.append(doctor2)
-        return [doctor1, doctor2]
+
+        doctor3 = Doctor('Dr.',
+                         'Cristina Pardo Trigo',
+                         ['general', 'neurology'],
+                         '+49 159 05251 2222',
+                         calendar.afternoon)
+        doctorList.append(doctor3)
+        
+        return [doctor1, doctor2, doctor3]
