@@ -11,11 +11,7 @@ class Doctor():
         self.availability = availability
 
     def __str__(self):
-        return json.dumps({
-            'title': self.title,
-            'name': self.name,
-            'specialist':self.specialist,
-        })
+        return '{} {} \n{}\n'.format(self.title, self.name, self.specialist)
     
     def __repr__(self):
         return self.__str__()

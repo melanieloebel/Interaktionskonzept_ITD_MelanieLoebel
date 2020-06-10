@@ -17,9 +17,6 @@ class Hospital:
         self.appointments = []
 
     def loop(self):
-
-        print(self.get_doctors_specialist())
-
         options = {
             '1': self.show_doctors,
             '2': self.show_free_rooms,
@@ -28,10 +25,10 @@ class Hospital:
             '5': self.show_appointments,
             '6': self.send_data_to_server,
         }
+        print('\n')
         print('----------{}-----------'.format(self.name))
         while True:
             #print('Specialistic fields: ', self.get_doctors_specialist())
-            print('\n')
             print('Select one option:')
             print('1 - show doctors')
             print('2 - show free rooms')
@@ -60,51 +57,61 @@ class Hospital:
     def make_appointment(self):
         possible_times = []
         # show possible times
-        for doctor in self.doctors:
-            print('{} {}'.format(doctor.name, str(doctor.specialist)))
-            for time in doctor.availability:
-                possible_times.append(time)
-                print(time.strftime("%H:%M"))
+        # for doctor in self.doctors:
+        #     print('{} {}'.format(doctor.name, str(doctor.specialist)))
+        #     for time in doctor.availability:
+        #         possible_times.append(time)
+        #         print(time.strftime("%H:%M"))
 
         print('Please enter your name: ')
         patient = input()
 
-        # Input Doctor 
+        # Input Doctor
         doc_options = {}
         print('\n')
         print('Hello ', patient, ',')
-        print('please choose one doctor for your appointment wish: ')
-        
-        count=1
 
-        for doctor in self.doctors:
-            
-            doc_options[count] = (doctor.title, doctor.name, doctor.specialist)
-            count = count + 1
-            print(doc_options)
-
-            #chosen_Doctor = input()
-        
         # Input request date for appointment
         print('Please enter your appointment whish (DD.MM.YYYY):')
-     
+
         # Check if chosen weekday is a weekend
         validWeekday = True
-        
+
         while validWeekday:
             request_date = input()
-
-            #in Datumformat konvertieren
-            request = datetime.datetime.strptime(request_date, '%d.%m.%Y').date()
-
+            # in Datumformat konvertieren
+            request = datetime.datetime.strptime(
+                request_date, '%d.%m.%Y').date()
             chosen_weekday = calendar.day_name[request.weekday()]
-
             if chosen_weekday == 'Saturday' or chosen_weekday == 'Sunday':
-                print ('You have chosen a weekend. Please enter another date (DD.MM.YYYY):')
-
+                print(
+                    'You have chosen a weekend. Please enter another date (DD.MM.YYYY):')
             else:
-                print('You have chosen a ',calendar.day_name[request.weekday()])
+                print('You have chosen a ',
+                      calendar.day_name[request.weekday()])
                 break
+
+        print('please choose one doctor for your appointment wish: ')
+
+        while True:
+            count = 1
+            for doctor in self.doctors:
+                doc_options[count] = doctor
+                print('{} - {}'.format(count, doctor))
+                count = count + 1
+
+            selected_index = int(input())
+            if(selected_index in doc_options):
+                selected_doctor = doc_options[selected_index]
+                break
+            else:
+                print('DUMM! try it again!')
+
+        print('You have selected {} {}'.format(
+            selected_doctor.title, selected_doctor.name))
+        for time in selected_doctor.availability:
+            possible_times.append(time)
+            print(time.strftime("%H:%M"))
 
         validTime = False
 
@@ -120,9 +127,9 @@ class Hospital:
                 possible_times.remove(time_obj)
                 appointment = (patient, request.strftime(
                     '%d.%m.%Y'), time_obj.strftime('%H:%M'))
-                
+
                 self.appointments.append(appointment)
-        #print(self.appointments)
+        # print(self.appointments)
         print(appointment)
 
     def show_appointments(self):
@@ -167,6 +174,4 @@ class Hospital:
                          '+49 159 05251 1111',
                          calendar.morning + calendar.afternoon)
         doctorList.append(doctor2)
-        print(doctorList)
         return [doctor1, doctor2]
-
