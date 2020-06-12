@@ -30,4 +30,11 @@ for d in dokList:
     #return n
 
 print (doc_options)
+print (len(dokList))
+
+myTuple = ("John", "Peter", "Vicky")
+
+x = "#".join(myTuple)
+
+print(x) 
 

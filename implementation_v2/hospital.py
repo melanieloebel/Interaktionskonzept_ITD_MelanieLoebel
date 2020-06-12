@@ -44,7 +44,14 @@ class Hospital:
                 print('invalid option')
 
     def show_doctors(self):
-        print(self.doctors)
+        print('\n')
+        print('List of doctors and their specialistic field: ')
+        
+        for doc in self.doctors:
+            print(doc)
+        #print(self.doctors)
+        #represent_doctors = '\n'.join(str(self.doctors))
+        #print(represent_doctors)
 
     def show_free_rooms(self):
         print('There are {} free rooms'.format(self.free_rooms))
@@ -55,7 +62,7 @@ class Hospital:
         self.show_free_rooms()
 
     def make_appointment(self):
-        possible_times = []
+        # possible_times = []
         # show possible times
         # for doctor in self.doctors:
         #     print('{} {}'.format(doctor.name, str(doctor.specialist)))
@@ -67,12 +74,14 @@ class Hospital:
         patient = input()
 
         # Input Doctor
-        doc_options = {}
-        print('\n')
-        print('Hello ', patient, ',')
+        #doc_options = {}
+        #print('\n')
+        #print('Hello ', patient, ',')
 
         # Input request date for appointment
-        print('Please enter your appointment whish (DD.MM.YYYY):')
+        print('\n')
+        print('Hello ', patient, ',')
+        print('please enter your appointment whish (DD.MM.YYYY):')
 
         # Check if chosen weekday is a weekend
         validWeekday = True
@@ -90,8 +99,10 @@ class Hospital:
                 print('You have chosen a ',
                       calendar.day_name[request.weekday()])
                 break
-
-        print('please choose one doctor for your appointment wish: ')
+        
+        # Input Doctor
+        doc_options = {}
+        print('Please choose one doctor for your appointment wish: ')
 
         while True:
             count = 1
@@ -109,10 +120,14 @@ class Hospital:
 
         print('You have selected {} {}'.format(
             selected_doctor.title, selected_doctor.name))
+        
+        # Show possible times for appointment
+        possible_times = []
         for time in selected_doctor.availability:
             possible_times.append(time)
             print(time.strftime("%H:%M"))
 
+        # Time input for appointment
         validTime = False
 
         while not validTime:
@@ -141,11 +156,11 @@ class Hospital:
         print(hospital_info)
         self.communication.send_message(hospital_info)
 
-    # Lukas Walter is waiting for the info like this
+    # Lukas needs info like this
     #"HospitalMcBrokenFinger 56.2296756,5.0122287 12 hops5 123 einExpter,Nocheiner,UndNochEiner"
     def get_hospital_info(self):
-        specialists = ''.join(self.get_doctors_specialist())
-        hospital_info = self.name + ' ' + self.coordinates + ' ' + '12' + \
+        specialists = ', '.join(self.get_doctors_specialist())
+        hospital_info = self.name + ' ' + self.coordinates + ' ' + str(len(self.doctors)) + \
             ' ' + self.id + ' ' + str(self.free_rooms) + ' ' + specialists
         return hospital_info
 
@@ -181,5 +196,20 @@ class Hospital:
                          '+49 159 05251 2222',
                          calendar.afternoon)
         doctorList.append(doctor3)
+
+        doctor4 = Doctor('Dr.',
+                         'Sarah Altmann',
+                         ['general', 'orthopaedist'],
+                         '+49 159 05251 3333',
+                         calendar.morning)
+        doctorList.append(doctor4)
+
+        doctor5 = Doctor('Dr.',
+                         'Tobias Knippschild',
+                         ['general', 'internist'],
+                         '+49 159 05251 4444',
+                         calendar.morning + calendar.afternoon)
+        doctorList.append(doctor5)
         
-        return [doctor1, doctor2, doctor3]
+        return [doctor1, doctor2, doctor3, doctor4, doctor5]
+        
