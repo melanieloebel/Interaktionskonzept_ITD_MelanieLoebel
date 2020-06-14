@@ -86,7 +86,7 @@ class Hospital:
                 selected_doctor = doc_options[selected_index]
                 break
             else:
-                print('DUMM! Try it again!')
+                print('Invalid option! Please try it again!')
 
         print('You have selected {} {}'.format(
             selected_doctor.title, selected_doctor.name))
