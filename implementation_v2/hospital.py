@@ -2,6 +2,7 @@ from doctor import Doctor
 from calendar_times import Calendar_times
 from communication import Communication
 import datetime
+from datetime import date
 import calendar
 
 
@@ -101,9 +102,18 @@ class Hospital:
             request = datetime.datetime.strptime(
                 request_date, '%d.%m.%Y').date()
             chosen_weekday = calendar.day_name[request.weekday()]
+
+            # Today 
+            #date_today = date.today()
+            #date_today = datetime.datetime.strptime(date_today, '%d.%m.%Y').date()
+
             if chosen_weekday == 'Saturday' or chosen_weekday == 'Sunday':
                 print(
                     'You have chosen a weekend. Please enter another date (DD.MM.YYYY):')
+            
+            elif request < date.today():
+                print('Choose a date from today or in the future: ')
+            
             else:
                 print('You have chosen a ',
                       calendar.day_name[request.weekday()])
@@ -134,7 +144,9 @@ class Hospital:
                 print('No appointment available on this date! Please choose a new date (DD.MM.YYYY): ')
 
         else:
-            print(time.strftime('%H:%M'))
+            for time in selected_doctor.availability:
+                print(time.strftime('%H:%M'))
+            
             validTime = False
 
             while not validTime:
