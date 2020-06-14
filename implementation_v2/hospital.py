@@ -110,132 +110,53 @@ class Hospital:
                 break
         
         # Check if the chosen date has free times
-        appointment_calendar = {}
-        saved_date = request.strftime('%d.%m.%Y')
-
         possible_times = []
-        saved_times = []
-        
-        #available_times = list(set(possible_times)-set(appointment_calendar.get(saved_date)))
+        reserved_times = [] # was saved_times
+        saved_date = request.strftime('%d.%m.%Y')
+        appointment_calendar = {}
+        doc_calendar = {}
 
-        # Save the available times of the respective doctor in to possible times
+               
+        # Save the available times of the respective doctor into possible times
         for time in selected_doctor.availability:
             possible_times.append(time)
-            #print(time.strftime("%H:%M"))
+            #print(time.strftime('%H:%M'))
 
-            # Check if times are available for the chosen date 
-        for saved_date in appointment_calendar:
-            #a = set(possible_times)
-            #b = appointment_calendar.get(saved_date)
-            #c = set(b)
-            #d = a-c
-            #e = list(d)
-
-            available_times = list(set(possible_times)-set(appointment_calendar.get(saved_date)))
-            if len(available_times) > 0:
-                for time in available_times:
-                    print(time.strftime("%H:%M"))
-                        
-                    validTime = False
-
-                    while not validTime:
-                        print('Please enter a time of following (HH:MM): ')
-                        timeInput = input()
-                        # '08:00'
-                        spl = timeInput.split(':')
-                        time_obj = datetime.time(int(spl[0]), int(spl[1]))
-                        if time_obj in possible_times:
-                            validTime = True
-                            saved_time = time_obj.strftime('%H:%M')
-                            saved_times.append(saved_time)
-                            appointment = {doctor : (patient, saved_date, saved_time)}
-                            self.appointments.append(appointment)
-                            appointment_calendar[saved_date] = saved_time
-                            #print('Appointment accepted:')
-                return possible_times
+        # Check which times are available for the chosen date
+        if (('{} {}'.format(selected_doctor.title, selected_doctor.name)) in doc_calendar) and (saved_date in doc_calendar.get(appointment_calendar)):
+            available_times = list(set(possible_times)-set(doc_calendar.get(appointment_calendar.get(saved_date))))
+                    
+            if len(available_times) > 0 :
+                for t in available_times:
+                    print(t.strftime('%H:%M'))
             
             else:
-                print('No appointment available for this date! Please choose another date: ')
-                break 
-             
-           
-        
-        #counter_possible_times = len(appointment_calendar.get(saved_date))
+                print('No appointment available on this date! Please choose a new date (DD.MM.YYYY): ')
 
-        #for request in appointment_calendar:
-            #for time in selected_doctor.availability:
-                #possible_times.append(time)
-                #print(time.strftime("%H:%M"))
+        else:
+            print(time.strftime('%H:%M'))
+            validTime = False
 
-        #for saved_date in appointment_calendar:
-            #if counter_possible_times > 0:
-                #possible_times = list(set(possible_times)-set(saved_times))
-                #for time in selected_doctor.availability:
-                    #print(time.strftime("%H:%M"))
-
-                    # Time input for appointment
-                    #validTime = False
-
-                    #while not validTime:
-                        #print('Please enter a time of following (HH:MM): ')
-                        #timeInput = input()
-                        # '08:00'
-                        #spl = timeInput.split(':')
-                        #time_obj = datetime.time(int(spl[0]), int(spl[1]))
-                        #if time_obj in possible_times:
-                            #validTime = True
-                            #saved_time = time_obj.strftime('%H:%M')
-                            #saved_times.append(saved_time)
-                            #appointment = {doctor : (patient, saved_date, saved_time)}
-                            #self.appointments.append(appointment)
-                            #print('Appointment accepted:')
-                #return possible_times
-
-                
-            #else:
-                #print('No appointment available for this date! Please choose another date: ')
-        
-        
-        #for time in selected_doctor.availability:
-                #possible_times.append(time)
-                #print(time.strftime("%H:%M"))      
-
-        
-
-        # Time input for appointment
-        #validTime = False
-
-        #while not validTime:
-            #print('Please enter a time of following (HH:MM): ')
-            #timeInput = input()
-            # '08:00'
-            #spl = timeInput.split(':')
-            #time_obj = datetime.time(int(spl[0]), int(spl[1]))
-            #if time_obj in possible_times:
-                #validTime = True
-                #print('Appointment accepted:')
-                #possible_times.remove(time_obj)
-                
-                #saved_date = request.strftime('%d.%m.%Y')
-                #saved_time = time_obj.strftime('%H:%M')
-
-                #appointment = {doctor : (patient, saved_date, saved_time)}
-
-                #saved_times.append(saved_time)
-                #possible_times = list(set(possible_times)-set(saved_times))
-
-                #doc_calendar[saved_date] = saved_time
-
-                #self.appointments.append(appointment)
-                #return possible_times
-
-                
-
-
-        # print(self.appointments)
-        print('Appointment accepted:') 
-        print(appointment)
-
+            while not validTime:
+                print('Please enter a time of following (HH:MM): ')
+                timeInput = input()
+                # '08:00'
+                spl = timeInput.split(':')
+                time_obj = datetime.time(int(spl[0]), int(spl[1]))
+                if time_obj in possible_times:
+                    validTime = True
+                    saved_time = time_obj.strftime('%H:%M')
+                    reserved_times.append(saved_time)
+                    appointment = {'{} {}'.format(selected_doctor.title, selected_doctor.name) : (patient, saved_date, saved_time)}
+                    self.appointments.append(appointment)
+                    appointment_calendar[saved_date] = reserved_times
+                    doc_calendar['{} {}'.format(selected_doctor.title, selected_doctor.name)] = appointment_calendar
+                    print('Appointment accepted:') 
+                    print(appointment)
+                    
+                return [reserved_times, appointment_calendar, doc_calendar]
+       
+       
     def show_appointments(self):
         print(self.appointments)
 
