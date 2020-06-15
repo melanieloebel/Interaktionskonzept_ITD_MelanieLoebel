@@ -180,25 +180,25 @@ class Hospital:
 
         doctor1 = Doctor('Dr.',
                          'Wolfgang Elpart',
-                         ['general', 'internist'],
+                         ['general', 'emergency_doc'],
                          '+49 139 05251 0000',
                          calendar.morning)
 
         doctor2 = Doctor('Dr.',
                          'Silvia Krogull',
-                         ['general', 'gastroenterologist'],
+                         ['general', 'cardiosurgery'],
                          '+49 139 05251 1111',
                          calendar.morning + calendar.afternoon)
 
         doctor3 = Doctor('Dr.',
                          'Achim Röttinger',
-                         ['general', 'cardiosurgery'],
+                         ['general', 'orthopedist'],
                          '+49 139 05251 2222',
                          calendar.afternoon)
 
         doctor4 = Doctor('Dr.',
                          'Christian Koerdt',
-                         ['general', 'pneumologist'],
+                         ['general', 'dermatological_surgeon'],
                          '+49 139 05251 3333',
                          calendar.morning)
 
