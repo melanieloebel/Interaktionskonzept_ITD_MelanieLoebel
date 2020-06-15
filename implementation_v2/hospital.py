@@ -119,54 +119,82 @@ class Hospital:
                       calendar.day_name[request.weekday()])
                 break
         
-        # Check if the chosen date has free times
-        possible_times = []
-        reserved_times = [] # was saved_times
-        saved_date = request.strftime('%d.%m.%Y')
-        appointment_calendar = {}
-        doc_calendar = {}
+        # at this point we have a valid DATE and the selected DOCTOR
+        # selected_doctor
+        # request = selected_date
+
+        # now we will ask for a time slot
+        for t in selected_doctor.availability:
+            print(t.strftime('%H:%M'))
+
+        validTime = False
+
+        while not validTime:
+            print('Please enter a time of following (HH:MM): ')
+            timeInput = input()
+            # '08:00'
+            spl = timeInput.split(':')
+            time_obj = datetime.time(int(spl[0]), int(spl[1]))
+            if time_obj in selected_doctor.availability:
+                validTime = True
+                saved_time = time_obj.strftime('%H:%M')
+                saved_date = request.strftime('%d.%m.%Y')
+                selected_doctor.availability.remove(time_obj)
+                appointment = {'{} {}'.format(selected_doctor.title, selected_doctor.name) : {patient, saved_date, saved_time} }
+                self.appointments.append(appointment)
+                print('Appointment accepted:') 
+                print(appointment)
+
+
+
+        # # Check if the chosen date has free times
+        # possible_times = []
+        # reserved_times = [] # was saved_times
+        # saved_date = request.strftime('%d.%m.%Y')
+        # appointment_calendar = {}
+        # doc_calendar = {}
 
                
-        # Save the available times of the respective doctor into possible times
-        for time in selected_doctor.availability:
-            possible_times.append(time)
-            #print(time.strftime('%H:%M'))
+        # # Save the available times of the respective doctor into possible times
+        # for time in selected_doctor.availability:
+        #     possible_times.append(time)
+        #     #print(time.strftime('%H:%M'))
 
-        # Check which times are available for the chosen date
-        if (('{} {}'.format(selected_doctor.title, selected_doctor.name)) in doc_calendar) and (saved_date in doc_calendar.get(appointment_calendar)):
-            available_times = list(set(possible_times)-set(doc_calendar.get(appointment_calendar.get(saved_date))))
+        # # Check which times are available for the chosen date
+        # if (('{} {}'.format(selected_doctor.title, selected_doctor.name)) in doc_calendar) and (saved_date in doc_calendar.get(appointment_calendar)):
+        #     available_times = list(set(possible_times)-set(doc_calendar.get(appointment_calendar.get(saved_date))))
                     
-            if len(available_times) > 0 :
-                for t in available_times:
-                    print(t.strftime('%H:%M'))
+        #     if len(available_times) > 0 :
+        #         for t in available_times:
+        #             print(t.strftime('%H:%M'))
             
-            else:
-                print('No appointment available on this date! Please choose a new date (DD.MM.YYYY): ')
+        #     else:
+        #         print('No appointment available on this date! Please choose a new date (DD.MM.YYYY): ')
 
-        else:
-            for time in selected_doctor.availability:
-                print(time.strftime('%H:%M'))
+        # else:
+        #     for time in selected_doctor.availability:
+        #         print(time.strftime('%H:%M'))
             
-            validTime = False
+        #     validTime = False
 
-            while not validTime:
-                print('Please enter a time of following (HH:MM): ')
-                timeInput = input()
-                # '08:00'
-                spl = timeInput.split(':')
-                time_obj = datetime.time(int(spl[0]), int(spl[1]))
-                if time_obj in possible_times:
-                    validTime = True
-                    saved_time = time_obj.strftime('%H:%M')
-                    reserved_times.append(saved_time)
-                    appointment = {'{} {}'.format(selected_doctor.title, selected_doctor.name) : (patient, saved_date, saved_time)}
-                    self.appointments.append(appointment)
-                    appointment_calendar[saved_date] = reserved_times
-                    doc_calendar['{} {}'.format(selected_doctor.title, selected_doctor.name)] = appointment_calendar
-                    print('Appointment accepted:') 
-                    print(appointment)
+        #     while not validTime:
+        #         print('Please enter a time of following (HH:MM): ')
+        #         timeInput = input()
+        #         # '08:00'
+        #         spl = timeInput.split(':')
+        #         time_obj = datetime.time(int(spl[0]), int(spl[1]))
+        #         if time_obj in possible_times:
+        #             validTime = True
+        #             saved_time = time_obj.strftime('%H:%M')
+        #             reserved_times.append(saved_time)
+        #             appointment = {'{} {}'.format(selected_doctor.title, selected_doctor.name) : (patient, saved_date, saved_time)}
+        #             self.appointments.append(appointment)
+        #             appointment_calendar[saved_date] = reserved_times
+        #             doc_calendar['{} {}'.format(selected_doctor.title, selected_doctor.name)] = appointment_calendar
+        #             print('Appointment accepted:') 
+        #             print(appointment)
                     
-                return [reserved_times, appointment_calendar, doc_calendar]
+        #         return [reserved_times, appointment_calendar, doc_calendar]
        
        
     def show_appointments(self):
@@ -196,7 +224,7 @@ class Hospital:
     # create Doctor objects that represents the doctors of the hospital
     def create_doctors(self):
         calendar = Calendar_times()
-        
+
         doctor1 = Doctor('Dr.',
                          'Paul Stollmann',
                          ['general', 'heart_attack'],
