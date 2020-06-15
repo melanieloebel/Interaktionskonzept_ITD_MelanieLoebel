@@ -9,11 +9,11 @@ import calendar
 class Hospital:
 
     def __init__(self):
-        self.name = 'HospitalMcBrokenFinger'
+        self.name = 'HospitalMcBrokenToe'
         self.doctors = self.create_doctors()
-        self.free_rooms = 30
-        self.id = 'melanie_hospital_1'
-        self.coordinates = '51.6813912,8.3420209'
+        self.free_rooms = 75
+        self.id = 'melanie_hospital_2'
+        self.coordinates = '31.2513912,8.5420209'
         self.communication = Communication(self.id)
         self.appointments = {}
 
@@ -119,11 +119,7 @@ class Hospital:
                       calendar.day_name[request.weekday()])
                 break
 
-        # at this point we have a valid DATE and the selected DOCTOR
-        # selected_doctor
-        # request = selected_date
-
-        # now we will ask for a time slot
+        # ask for a time slot
         for t in selected_doctor.availability:
             print(t.strftime('%H:%M'))
 
@@ -147,61 +143,15 @@ class Hospital:
                     saved_time)
 
                 if key in self.appointments:
+                    #possible_times.remove(saved_time)
                     print('This time slot is not free')
+                    
                 else:
                     validTime = True
                     self.appointments[key] = {patient, saved_date, saved_time}
                     print('Appointment accepted:')
-                    print({key:{patient, saved_date, saved_time}})
-
-        # # Check if the chosen date has free times
-        # possible_times = []
-        # reserved_times = [] # was saved_times
-        # saved_date = request.strftime('%d.%m.%Y')
-        # appointment_calendar = {}
-        # doc_calendar = {}
-
-        # # Save the available times of the respective doctor into possible times
-        # for time in selected_doctor.availability:
-        #     possible_times.append(time)
-        #     #print(time.strftime('%H:%M'))
-
-        # # Check which times are available for the chosen date
-        # if (('{} {}'.format(selected_doctor.title, selected_doctor.name)) in doc_calendar) and (saved_date in doc_calendar.get(appointment_calendar)):
-        #     available_times = list(set(possible_times)-set(doc_calendar.get(appointment_calendar.get(saved_date))))
-
-        #     if len(available_times) > 0 :
-        #         for t in available_times:
-        #             print(t.strftime('%H:%M'))
-
-        #     else:
-        #         print('No appointment available on this date! Please choose a new date (DD.MM.YYYY): ')
-
-        # else:
-        #     for time in selected_doctor.availability:
-        #         print(time.strftime('%H:%M'))
-
-        #     validTime = False
-
-        #     while not validTime:
-        #         print('Please enter a time of following (HH:MM): ')
-        #         timeInput = input()
-        #         # '08:00'
-        #         spl = timeInput.split(':')
-        #         time_obj = datetime.time(int(spl[0]), int(spl[1]))
-        #         if time_obj in possible_times:
-        #             validTime = True
-        #             saved_time = time_obj.strftime('%H:%M')
-        #             reserved_times.append(saved_time)
-        #             appointment = {'{} {}'.format(selected_doctor.title, selected_doctor.name) : (patient, saved_date, saved_time)}
-        #             self.appointments.append(appointment)
-        #             appointment_calendar[saved_date] = reserved_times
-        #             doc_calendar['{} {}'.format(selected_doctor.title, selected_doctor.name)] = appointment_calendar
-        #             print('Appointment accepted:')
-        #             print(appointment)
-
-        #         return [reserved_times, appointment_calendar, doc_calendar]
-
+                    print({'{}-{}'.format(selected_doctor.title, selected_doctor.name):(patient, saved_date, saved_time)})
+       
     def show_appointments(self):
         print(self.appointments)
 
@@ -211,8 +161,6 @@ class Hospital:
         print(hospital_info)
         self.communication.send_message(hospital_info)
 
-    # Lukas needs info like this
-    #"HospitalMcBrokenFinger 56.2296756,5.0122287 12 hops5 123 einExpter,Nocheiner,UndNochEiner"
     def get_hospital_info(self):
         specialists = ', '.join(self.get_doctors_specialist())
         hospital_info = self.name + ' ' + self.coordinates + ' ' + str(len(self.doctors)) + \
@@ -231,33 +179,33 @@ class Hospital:
         calendar = Calendar_times()
 
         doctor1 = Doctor('Dr.',
-                         'Paul Stollmann',
-                         ['general', 'heart_attack'],
-                         '+49 159 05251 0000',
+                         'Renata Silverstone',
+                         ['general', 'gastroenterologist'],
+                         '+49 169 05251 0000',
                          calendar.morning)
 
         doctor2 = Doctor('Dr.',
-                         'Maria Anna Weber',
+                         'Maria Wegener',
                          ['general', 'surgery'],
-                         '+49 159 05251 1111',
+                         '+49 169 05251 1111',
                          calendar.morning + calendar.afternoon)
 
         doctor3 = Doctor('Dr.',
-                         'Cristina Pardo Trigo',
-                         ['general', 'neurology'],
-                         '+49 159 05251 2222',
+                         'Greta Koopmann',
+                         ['general', 'orthopaedist surgeon'],
+                         '+49 169 05251 2222',
                          calendar.afternoon)
 
         doctor4 = Doctor('Dr.',
-                         'Sarah Altmann',
-                         ['general', 'orthopaedist'],
-                         '+49 159 05251 3333',
+                         'Christian Gösling',
+                         ['general', 'neurologist'],
+                         '+49 169 05251 3333',
                          calendar.morning)
 
         doctor5 = Doctor('Dr.',
-                         'Tobias Knippschild',
-                         ['general', 'internist'],
-                         '+49 159 05251 4444',
+                         'Viktor Kratchnisky',
+                         ['general', 'ophthalmologist'],
+                         '+49 169 05251 4444',
                          calendar.morning + calendar.afternoon)
 
         return [doctor1, doctor2, doctor3, doctor4, doctor5]
