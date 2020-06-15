@@ -196,42 +196,36 @@ class Hospital:
     # create Doctor objects that represents the doctors of the hospital
     def create_doctors(self):
         calendar = Calendar_times()
-        doctorList = []
-
+        
         doctor1 = Doctor('Dr.',
                          'Paul Stollmann',
                          ['general', 'heart_attack'],
                          '+49 159 05251 0000',
                          calendar.morning)
-        doctorList.append(doctor1)
 
         doctor2 = Doctor('Dr.',
                          'Maria Anna Weber',
                          ['general', 'surgery'],
                          '+49 159 05251 1111',
                          calendar.morning + calendar.afternoon)
-        doctorList.append(doctor2)
 
         doctor3 = Doctor('Dr.',
                          'Cristina Pardo Trigo',
                          ['general', 'neurology'],
                          '+49 159 05251 2222',
                          calendar.afternoon)
-        doctorList.append(doctor3)
 
         doctor4 = Doctor('Dr.',
                          'Sarah Altmann',
                          ['general', 'orthopaedist'],
                          '+49 159 05251 3333',
                          calendar.morning)
-        doctorList.append(doctor4)
 
         doctor5 = Doctor('Dr.',
                          'Tobias Knippschild',
                          ['general', 'internist'],
                          '+49 159 05251 4444',
                          calendar.morning + calendar.afternoon)
-        doctorList.append(doctor5)
         
         return [doctor1, doctor2, doctor3, doctor4, doctor5]
         
