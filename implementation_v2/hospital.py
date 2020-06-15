@@ -15,7 +15,7 @@ class Hospital:
         self.id = 'melanie_hospital_1'
         self.coordinates = '51.6813912,8.3420209'
         self.communication = Communication(self.id)
-        self.appointments = []
+        self.appointments = {}
 
     def loop(self):
         options = {
@@ -47,12 +47,12 @@ class Hospital:
     def show_doctors(self):
         print('\n')
         print('List of doctors and their specialistic field: ')
-        
+
         for doc in self.doctors:
             print(doc)
-        #print(self.doctors)
+        # print(self.doctors)
         #represent_doctors = '\n'.join(str(self.doctors))
-        #print(represent_doctors)
+        # print(represent_doctors)
 
     def show_free_rooms(self):
         print('There are {} free rooms'.format(self.free_rooms))
@@ -63,7 +63,7 @@ class Hospital:
         self.show_free_rooms()
 
     def make_appointment(self):
-        
+
         # Input patient name
         print('Please enter your name: ')
         patient = input()
@@ -103,22 +103,22 @@ class Hospital:
                 request_date, '%d.%m.%Y').date()
             chosen_weekday = calendar.day_name[request.weekday()]
 
-            # Today 
+            # Today
             #date_today = date.today()
             #date_today = datetime.datetime.strptime(date_today, '%d.%m.%Y').date()
 
             if chosen_weekday == 'Saturday' or chosen_weekday == 'Sunday':
                 print(
                     'You have chosen a weekend. Please enter another date (DD.MM.YYYY):')
-            
+
             elif request < date.today():
                 print('Choose a date from today or in the future: ')
-            
+
             else:
                 print('You have chosen a ',
                       calendar.day_name[request.weekday()])
                 break
-        
+
         # at this point we have a valid DATE and the selected DOCTOR
         # selected_doctor
         # request = selected_date
@@ -136,16 +136,23 @@ class Hospital:
             spl = timeInput.split(':')
             time_obj = datetime.time(int(spl[0]), int(spl[1]))
             if time_obj in selected_doctor.availability:
-                validTime = True
                 saved_time = time_obj.strftime('%H:%M')
                 saved_date = request.strftime('%d.%m.%Y')
-                selected_doctor.availability.remove(time_obj)
-                appointment = {'{} {}'.format(selected_doctor.title, selected_doctor.name) : {patient, saved_date, saved_time} }
-                self.appointments.append(appointment)
-                print('Appointment accepted:') 
-                print(appointment)
 
+                # now check if this slot is free for this day
+                key = '{}-{}-{}-{}'.format(
+                    selected_doctor.title,
+                    selected_doctor.name,
+                    saved_date,
+                    saved_time)
 
+                if key in self.appointments:
+                    print('This time slot is not free')
+                else:
+                    validTime = True
+                    self.appointments[key] = {patient, saved_date, saved_time}
+                    print('Appointment accepted:')
+                    print({key:{patient, saved_date, saved_time}})
 
         # # Check if the chosen date has free times
         # possible_times = []
@@ -154,7 +161,6 @@ class Hospital:
         # appointment_calendar = {}
         # doc_calendar = {}
 
-               
         # # Save the available times of the respective doctor into possible times
         # for time in selected_doctor.availability:
         #     possible_times.append(time)
@@ -163,18 +169,18 @@ class Hospital:
         # # Check which times are available for the chosen date
         # if (('{} {}'.format(selected_doctor.title, selected_doctor.name)) in doc_calendar) and (saved_date in doc_calendar.get(appointment_calendar)):
         #     available_times = list(set(possible_times)-set(doc_calendar.get(appointment_calendar.get(saved_date))))
-                    
+
         #     if len(available_times) > 0 :
         #         for t in available_times:
         #             print(t.strftime('%H:%M'))
-            
+
         #     else:
         #         print('No appointment available on this date! Please choose a new date (DD.MM.YYYY): ')
 
         # else:
         #     for time in selected_doctor.availability:
         #         print(time.strftime('%H:%M'))
-            
+
         #     validTime = False
 
         #     while not validTime:
@@ -191,12 +197,11 @@ class Hospital:
         #             self.appointments.append(appointment)
         #             appointment_calendar[saved_date] = reserved_times
         #             doc_calendar['{} {}'.format(selected_doctor.title, selected_doctor.name)] = appointment_calendar
-        #             print('Appointment accepted:') 
+        #             print('Appointment accepted:')
         #             print(appointment)
-                    
+
         #         return [reserved_times, appointment_calendar, doc_calendar]
-       
-       
+
     def show_appointments(self):
         print(self.appointments)
 
@@ -254,6 +259,5 @@ class Hospital:
                          ['general', 'internist'],
                          '+49 159 05251 4444',
                          calendar.morning + calendar.afternoon)
-        
+
         return [doctor1, doctor2, doctor3, doctor4, doctor5]
-        
