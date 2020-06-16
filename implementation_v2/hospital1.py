@@ -180,6 +180,15 @@ class Hospital:
                                set(specialists)) + specialists
         return specialists
 
+    def listen_to_server(self):
+        self.communication.on_connect
+        getMessageFromServer = True
+        
+        while getMessageFromServer:
+            self.free_rooms = self.free_rooms - 1
+            print('Room is reserved!')
+            return self.free_rooms
+
     # create Doctor objects that represents the doctors of the hospital
     def create_doctors(self):
         calendar = Calendar_times()
