@@ -157,6 +157,10 @@ class Hospital:
                     self.appointments[key] = {patient, saved_date, saved_time}
                     print('Appointment accepted:')
                     print({'{}-{}'.format(selected_doctor.title, selected_doctor.name):(patient, saved_date, saved_time)})
+                    self.free_rooms = self.free_rooms - 1
+                    print('A room in {} is reserved!'.format(self.name))
+
+                    return self.free_rooms
 
     def show_appointments(self):
         print(self.appointments)
@@ -180,14 +184,14 @@ class Hospital:
                                set(specialists)) + specialists
         return specialists
 
-    def listen_to_server(self):
-        self.communication.on_connect
-        getMessageFromServer = True
+    #def listen_to_server(self):
+        #self.communication.on_connect
+        #getMessageFromServer = True
         
-        while getMessageFromServer:
-            self.free_rooms = self.free_rooms - 1
-            print('Room is reserved!')
-            return self.free_rooms
+        #while getMessageFromServer:
+            #self.free_rooms = self.free_rooms - 1
+            #print('Room is reserved!')
+            #return self.free_rooms
 
     # create Doctor objects that represents the doctors of the hospital
     def create_doctors(self):
