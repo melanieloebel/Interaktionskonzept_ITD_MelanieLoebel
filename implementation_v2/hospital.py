@@ -8,12 +8,12 @@ import calendar
 
 class Hospital:
 
-    def __init__(self):
-        self.name = 'HospitalMcBrokenNose'
+    def __init__(self, name, free_rooms, id, coordinates, doctors):
+        self.name = name
         self.doctors = self.create_doctors()
-        self.free_rooms = 20
-        self.id = 'melanie_hospital_3'
-        self.coordinates = '41.2513912,8.2440209'
+        self.free_rooms = free_rooms
+        self.id = id
+        self.coordinates = coordinates
         self.communication = Communication(self.id)
         self.appointments = {}
 
@@ -119,6 +119,12 @@ class Hospital:
                       calendar.day_name[request.weekday()])
                 break
 
+            
+            
+        # at this point we have a valid DATE and the selected DOCTOR
+        # selected_doctor
+        # request = selected_date
+
         # ask for a time slot
         for t in selected_doctor.availability:
             print(t.strftime('%H:%M'))
@@ -151,7 +157,7 @@ class Hospital:
                     self.appointments[key] = {patient, saved_date, saved_time}
                     print('Appointment accepted:')
                     print({'{}-{}'.format(selected_doctor.title, selected_doctor.name):(patient, saved_date, saved_time)})
-       
+
     def show_appointments(self):
         print(self.appointments)
 
@@ -174,38 +180,47 @@ class Hospital:
                                set(specialists)) + specialists
         return specialists
 
+    def listen_to_server(self):
+        self.communication.on_connect
+        getMessageFromServer = True
+        
+        while getMessageFromServer:
+            self.free_rooms = self.free_rooms - 1
+            print('Room is reserved!')
+            return self.free_rooms
+
     # create Doctor objects that represents the doctors of the hospital
     def create_doctors(self):
         calendar = Calendar_times()
 
         doctor1 = Doctor('Dr.',
-                         'Wolfgang Elpart',
-                         ['general', 'emergency_doc'],
-                         '+49 139 05251 0000',
+                         'Paul Stollmann',
+                         ['general', 'cardiosurgery'],
+                         '+49 159 05251 0000',
                          calendar.morning)
 
         doctor2 = Doctor('Dr.',
-                         'Silvia Krogull',
-                         ['general', 'cardiosurgery'],
-                         '+49 139 05251 1111',
+                         'Maria Anna Weber',
+                         ['general', 'orthopedist'],
+                         '+49 159 05251 1111',
                          calendar.morning + calendar.afternoon)
 
         doctor3 = Doctor('Dr.',
-                         'Achim Röttinger',
-                         ['general', 'orthopedist'],
-                         '+49 139 05251 2222',
+                         'Cristina Pardo Trigo',
+                         ['general', 'emergency_doc'],
+                         '+49 159 05251 2222',
                          calendar.afternoon)
 
         doctor4 = Doctor('Dr.',
-                         'Christian Koerdt',
-                         ['general', 'dermatological_surgeon'],
-                         '+49 139 05251 3333',
+                         'Sarah Altmann',
+                         ['general', 'internist'],
+                         '+49 159 05251 3333',
                          calendar.morning)
 
         doctor5 = Doctor('Dr.',
-                         'Katja Müllermeier',
-                         ['general', 'ophthalmologist'],
-                         '+49 139 05251 4444',
+                         'Tobias Knippschild',
+                         ['general', 'dermatological_surgeon'],
+                         '+49 159 05251 4444',
                          calendar.morning + calendar.afternoon)
 
         return [doctor1, doctor2, doctor3, doctor4, doctor5]
