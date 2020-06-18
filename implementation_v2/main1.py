@@ -38,11 +38,11 @@ def create_doctors():
     return [doctor1, doctor2, doctor3, doctor4, doctor5]
 
 #Data for hospital 1
-name = 'HospitalMcBrokenFinger'
+name = 'St. Vincenz-Krankenhaus'
 free_rooms = 30
 id = 'melanie_hospital_1'
-coordinates = '51.7038134,8.7743594'  # Paderborn
-coordinates = '51.5078011, 7.3301805'  # Dortmund
+coordinates = '51.71811294555664,8.759356498718261'  # Paderborn
+#coordinates = '51.5078011, 7.3301805'  # Dortmund
 doctors = create_doctors()
 
 

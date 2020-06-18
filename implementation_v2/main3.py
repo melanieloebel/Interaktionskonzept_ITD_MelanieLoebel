@@ -39,10 +39,10 @@ def create_doctors():
     return [doctor1, doctor2, doctor3, doctor4, doctor5]
 
 #Data for hospital 3
-name = 'HospitalMcBrokenNose'
+name = 'EVK Lippstadt'
 free_rooms = 20
 id = 'melanie_hospital_2'
-coordinates = '51.676517,8.2638605'  # Lippstadt
+coordinates = '51.68474578857422,8.34333610534668'  # Lippstadt
 doctors = create_doctors()
 
 hospital = Hospital(name, free_rooms, id, coordinates, doctors)
