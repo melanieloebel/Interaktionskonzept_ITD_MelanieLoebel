@@ -164,17 +164,27 @@ class Hospital:
         print(self.appointments)
 
     def send_data_to_server(self):
-        hospital_info = self.get_hospital_info()
+        #hospital_info = self.get_hospital_info()
+        message = self.get_hospital_info()
         print('will send this line to the server:')
-        print(hospital_info)
-        self.communication.send_message(hospital_info)
+        #print(hospital_info)
+        print(message)
+        self.communication.send_message(message)
 
     def get_hospital_info(self):
         specialists = ', '.join(self.get_doctors_specialist())
-        hospital_info = json.dumps({self.name + ' ' + self.coordinates + ' ' + str(len(self.doctors)) + \
-            ' ' + self.id + ' ' + str(self.free_rooms) + ' ' + specialists})
-        return hospital_info
-
+        hospital_info = self.name + ' ' + self.coordinates + ' ' + str(len(self.doctors)) + \
+            ' ' + self.id + ' ' + str(self.free_rooms) + ' ' + specialists
+        #return hospital_info
+        message = json.dumps( {
+            "hospital_name": "Hospital_of_Melanie",
+            "location": [43.3, 23.22],
+            "doctors": 12,
+            "id": "hosp100",
+            "freeRooms": 123,
+            "specialists": ['general', 'cardiosurgery']
+        })
+        return message
         #message = json.dumps({'hospital_name': "Hospital_of_Melanie", 'location':[43.3,23.22],'doctors':12,'id':'hosp100','freeRooms':15,'specialists':['general','cardiosurgery']})
 
     def get_doctors_specialist(self):
