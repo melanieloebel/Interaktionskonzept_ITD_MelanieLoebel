@@ -43,7 +43,7 @@ name = 'St_Vincenz_Krankenhaus'
 free_rooms = 30
 id = 'mel_hosp1'
 coordinates = '51.71811294555664,8.759356498718261'  # Paderborn
-coordinates = '51.5078011, 7.3301805'  # Dortmund
+coordinates = '51.50, 7.33'  # Dortmund
 doctors = create_doctors()
 
 #json.dumps({'name':'St_Vincenz_Krankenhaus', 'free_rooms': '30', 
