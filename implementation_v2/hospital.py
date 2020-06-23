@@ -4,6 +4,7 @@ from communication import Communication
 import datetime
 from datetime import date
 import calendar
+import json
 
 
 class Hospital:
@@ -170,9 +171,11 @@ class Hospital:
 
     def get_hospital_info(self):
         specialists = ', '.join(self.get_doctors_specialist())
-        hospital_info = self.name + ' ' + self.coordinates + ' ' + str(len(self.doctors)) + \
-            ' ' + self.id + ' ' + str(self.free_rooms) + ' ' + specialists
+        hospital_info = json.dumps({self.name + ' ' + self.coordinates + ' ' + str(len(self.doctors)) + \
+            ' ' + self.id + ' ' + str(self.free_rooms) + ' ' + specialists})
         return hospital_info
+
+        #message = json.dumps({'hospital_name': "Hospital_of_Melanie", 'location':[43.3,23.22],'doctors':12,'id':'hosp100','freeRooms':15,'specialists':['general','cardiosurgery']})
 
     def get_doctors_specialist(self):
         specialists = []

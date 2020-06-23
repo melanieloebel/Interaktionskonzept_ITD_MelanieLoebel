@@ -1,6 +1,7 @@
 from hospital import Hospital
 from calendar_times import Calendar_times
 from doctor import Doctor
+import json
 
 
 def create_doctors():
@@ -39,9 +40,9 @@ def create_doctors():
     return [doctor1, doctor2, doctor3, doctor4, doctor5]
 
 #Data for hospital 2
-name = 'St.-Johannes-Hospital'
+name = 'St_Johannes_Hospital'
 free_rooms = 75
-id = 'melanie_hospital_2'
+id = 'hosp2'
 coordinates = '51.51068115234375,7.457388877868652'  # Dortmund
 doctors = create_doctors()
 
