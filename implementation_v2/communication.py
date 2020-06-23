@@ -21,7 +21,7 @@ class Communication:
     def send_message(self, message):
         self.client.publish(
             self.server_topic,
-            message
+            json.dumps(message)
         )
 
     def on_connect(self, client, userdata, flags, rc):

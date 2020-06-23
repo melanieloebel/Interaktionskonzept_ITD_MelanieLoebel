@@ -42,7 +42,7 @@ def create_doctors():
 #Data for hospital 3
 name = 'EVK_Lippstadt'
 free_rooms = 20
-id = 'hosp3'
+id = 'mel_hosp3'
 coordinates = '51.68474578857422,8.34333610534668'  # Lippstadt
 doctors = create_doctors()
 
