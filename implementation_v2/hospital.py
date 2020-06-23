@@ -11,12 +11,12 @@ class Hospital:
 
     def __init__(self, name, free_rooms, id, coordinates, doctors):
         self.name = name
-        self.doctors = self.create_doctors()
-        self.free_rooms = free_rooms
-        self.id = id
-        self.coordinates = coordinates
-        self.communication = Communication(self.id)
-        self.appointments = {}
+        self.doctors = self.create_doctors()        # List of created doctors
+        self.free_rooms = free_rooms                # int
+        self.id = id                                # int
+        self.coordinates = coordinates              # array [float, float]
+        self.communication = Communication(self.id) # Communication with the server
+        self.appointments = {}                      # dictonary of all appointments
 
         
 
