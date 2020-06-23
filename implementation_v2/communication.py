@@ -1,6 +1,6 @@
 import paho.mqtt.client as mqtt
-import json
-import time
+import json                         # for using json data exchange
+import time                         # for using the function make_appointment with date and time input
 
 class Communication:
 
@@ -8,12 +8,12 @@ class Communication:
         self.id = my_id
         self.server_topic = '/hshl/hospitals/'
         self.client = mqtt.Client()
-        self.client.on_connect = self.on_connect #Zuweisen des Connect Events
-        self.client.on_message = self.on_message #Zuweisen des Message Events
+        self.client.on_connect = self.on_connect #assign the Connect Event
+        self.client.on_message = self.on_message #assign the Message Event
 
-        self.client.username_pw_set("solace-cloud-client", "nbsse0pkvpkvhpeh3ll5j7rpha") # Benutzernamen und Passwort zur Verbindung setzen
+        self.client.username_pw_set("solace-cloud-client", "nbsse0pkvpkvhpeh3ll5j7rpha") # user name and password for connection
 
-        self.client.connect("mr2mbqbl71a4vf.messaging.solace.cloud", port = 20614) #Verbindung zum Broker aufbauen
+        self.client.connect("mr2mbqbl71a4vf.messaging.solace.cloud", port = 20614) #Establishing a connection to the broker
 
         self.client.loop_start()
         #self.client.loop_forever()
