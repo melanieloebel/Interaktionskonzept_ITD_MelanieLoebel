@@ -158,7 +158,9 @@ class Hospital:
                     validTime = True
                     self.appointments[key] = {patient, saved_date, saved_time}
                     print('Appointment accepted:')
-                    print({'{}-{}'.format(selected_doctor.title, selected_doctor.name):(patient, saved_date, saved_time)})
+                    print({'{}-{}'.format
+                    (selected_doctor.title, selected_doctor.name):
+                    (patient, saved_date, saved_time)})
                     self.free_rooms = self.free_rooms - 1
                     print('A room in {} is reserved!'.format(self.name))
 
