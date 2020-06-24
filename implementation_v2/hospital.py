@@ -34,8 +34,8 @@ class Hospital:
         
         print('\n')
         print('----------{}-----------'.format(self.name))
+        
         while True:
-            #print('Specialistic fields: ', self.get_doctors_specialist())
             print('Select one option:')
             print('1 - show doctors')
             print('2 - show free rooms')
