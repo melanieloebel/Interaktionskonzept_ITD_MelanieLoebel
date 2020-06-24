@@ -21,6 +21,8 @@ class Hospital:
         
 
     def loop(self):
+
+        # possible options saved in a dictionary
         options = {
             '1': self.show_doctors,
             '2': self.show_free_rooms,
@@ -29,6 +31,7 @@ class Hospital:
             '5': self.show_appointments,
             '6': self.send_data_to_server,
         }
+        
         print('\n')
         print('----------{}-----------'.format(self.name))
         while True:
