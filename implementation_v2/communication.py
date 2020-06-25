@@ -17,18 +17,22 @@ class Communication:
         #Establishing a connection to the broker
         self.client.connect("mr2mbqbl71a4vf.messaging.solace.cloud", port = 20614) 
 
-        self.client.loop_start()
+        #self.client.loop_start()
+        
         
     def send_message(self, message):
         self.client.publish(
             self.server_topic,
             json.dumps(message)
         )
+        #print('send data: {}'.format(message))
+        self.client.loop_forever()
 
     def on_connect(self, client, userdata, flags, rc):
         client.subscribe([
-                        ("hshl/hospitals/{}".format(self.id), 2),
+                        ("{}{}".format(self.server_topic, self.id), 2),
                         ])
+        #print('subscribed to {}{}'.format(self.server_topic, self.id))
 
     def on_message(self, client, userdata, msg):
         print(str(msg.payload))
